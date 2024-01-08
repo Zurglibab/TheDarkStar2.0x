@@ -104,6 +104,7 @@ class fonctionnement:
         Vérifie toute les cases vides autour de la case x,y
         Si aucune case est vide renvoie False
         Sinon renvoie la liste de toutes les coordonées de possible 
+        Ceci est un test
         """
         liste1, liste2 = [-1, 1], [-2, 2]
         res= []
