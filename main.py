@@ -30,6 +30,8 @@ class fonctionnement:
         self.__player = 1
         self.__compteur=0 
         self.__couleurBase  = 'black'
+        self.__pion1 = [-1,-1]
+        self.__pion2 = [-1,-1]
     
     def getBoard(self):
         return self.__board
@@ -98,15 +100,20 @@ class fonctionnement:
         return False
         
     def possible(self, x,y):
-       liste1, liste2 = [-1, 1], [-2, 2]
-       if 0 <= y < self.__size and 0 <= x < self.__size and self.__board[y][x].getEtat() == [0,-1]:
-           for i in liste1:
-               for j in liste2:
-                    if 0 <= x+i < self.__size and 0 <= y+j < self.__size and self.__board[y+j][x+i].getEtat() == [self.__player,0]:
-                        return [x+i,y+j]
-                    elif 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [self.__player,0]:
-                        return [x+j,y+i]
-       return False
+        """
+        Vérifie toute les cases vides autour de la case x,y
+        Si aucune case est vide renvoie False
+        Sinon renvoie la liste de toutes les coordonées de possible 
+        """
+        liste1, liste2 = [-1, 1], [-2, 2]
+        res= []
+        for i in liste1:
+            for j in liste2:
+                 if 0 <= x+i < self.__size and 0 <= y+j < self.__size and self.__board[y+j][x+i].getEtat() == [self.__player,0]:
+                     res.append([x+i,y+j])
+                 elif 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [self.__player,0]:
+                     res.append([x+j,y+i])
+        return False
    
     def move(self, x, y):
         if self.possible(x, y)!= False:
