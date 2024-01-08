@@ -30,8 +30,7 @@ class fonctionnement:
         self.__player = 1
         self.__compteur=0 
         self.__couleurBase  = 'black'
-        self.__pion1 = [-1,-1]
-        self.__pion2 = [-1,-1]
+        self.__pion = [[-1,-1],[-1,-1]]
     
     def getBoard(self):
         return self.__board
@@ -104,7 +103,6 @@ class fonctionnement:
         Vérifie toute les cases vides autour de la case x,y
         Si aucune case est vide renvoie False
         Sinon renvoie la liste de toutes les coordonées de possible 
-        Ceci est un test
         """
         liste1, liste2 = [-1, 1], [-2, 2]
         res= []
@@ -117,10 +115,12 @@ class fonctionnement:
         return False
    
     def move(self, x, y):
-        if self.possible(x, y)!= False:
-            i, j = self.possible(x,y)
+        coordonePion = self.__pion[self.__player][0], self.__pion[self.__player][1]
+        if self.possible(coordonePion[0],coordonePion[1]) and [x,y] in self.possible(coordonePion[0],coordonePion[1]):
+            i,j = self.__pion[self.__player]
             self.__board[j][i].setEtat([self.__player,1])
             self.__board[y][x].setEtat([self.__player,0])
+            self.__pion[self.__player] = [x,y]
             return True
         return False
     
