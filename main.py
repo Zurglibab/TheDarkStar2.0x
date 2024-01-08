@@ -30,7 +30,7 @@ class fonctionnement:
         self.__player = 1
         self.__compteur=0 
         self.__couleurBase  = 'black'
-        self.__pion = [[2,2],[5,2]]
+        self.__pion = [[2,2],[2,5]]
     
     def getBoard(self):
         return self.__board
@@ -110,20 +110,19 @@ class fonctionnement:
             for j in liste2:
                  if 0 <= x+i < self.__size and 0 <= y+j < self.__size and self.__board[y+j][x+i].getEtat() == [0,-1]:
                      res.append([x+i,y+j])
-                 elif 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [0,-1]:
+                 if 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [0,-1]:
                      res.append([x+j,y+i])
-        print(res)
         return False if res==[] else res
    
     def move(self, x, y):
         coordonePion = self.__pion[self.__player-1][0], self.__pion[self.__player-1][1]
         print(self.__player,coordonePion, [x,y] )
         if self.possible(coordonePion[0],coordonePion[1])!=False and [x,y] in self.possible(coordonePion[0],coordonePion[1]):
-            i,j = self.__pion[self.__player]
+            i,j = self.__pion[self.__player-1]
             print(self.__player,coordonePion)
             self.__board[j][i].setEtat([self.__player,1])
             self.__board[y][x].setEtat([self.__player,0])
-            self.__pion[self.__player] = [x,y]
+            self.__pion[self.__player-1] = [x,y]
             return True
         return False
     
