@@ -63,12 +63,14 @@ class fonctionnement:
         a,b=y,y-1
         while (a+1<= self.__size and self.__board[a+1][x].getEtat()==[self.__player,1]) or (b-1>=0 and self.__board[b-1][x].getEtat()==[self.__player,1]):
             self.__compteur +=1
+            print("6")
             if self.__compteur >= self.__nbrPion-1 :
                 return True
             elif (a+1<= self.__size and self.__board[a+1][x].getEtat()==[self.__player,1]) :
                 a+=1
             else :
                 b-=1
+            
         self.__compteur = 0
         
         # vérification diagonale ascendante
@@ -112,15 +114,12 @@ class fonctionnement:
                      res.append([x+i,y+j])
                  if 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [0,-1]:
                      res.append([x+j,y+i])
-        print(res)
         return False if res==[] else res
    
     def move(self, x, y):
         coordonePion = self.__pion[self.__player-1][0], self.__pion[self.__player-1][1]
-        print(self.__player,coordonePion, [x,y] )
         if self.possible(coordonePion[0],coordonePion[1])!=False and [x,y] in self.possible(coordonePion[0],coordonePion[1]):
             i,j = self.__pion[self.__player-1]
-            print(self.__player,coordonePion)
             self.__board[j][i].setEtat([self.__player,1])
             self.__board[y][x].setEtat([self.__player,0])
             self.__pion[self.__player-1] = [x,y]
@@ -128,6 +127,7 @@ class fonctionnement:
         return False
     
     def again(self):
+        fin = False
         for y in range(self.__size):
             for x in range(self.__size):
                 if self.__board[y][x].getEtat() == [self.__player, 1]:
@@ -135,6 +135,6 @@ class fonctionnement:
                         print("1")
                         return False
                 prochainPlayer = 3-self.__player
-                if self.possible(self.__pion[prochainPlayer-1][0],self.__pion[prochainPlayer-1][1]) !=False:
-                    return True
-        return False
+                if self.__board[y][x].getEtat() == [self.__player, 0] and self.possible(self.__pion[prochainPlayer-1][0],self.__pion[prochainPlayer-1][1]) !=False:
+                    fin=False
+        return fin

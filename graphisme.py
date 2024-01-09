@@ -31,8 +31,14 @@ class gui :
             self.__board.setPlayer(3-self.__board.getPlayer())
             self.updateLabels()
         else:
-            print('Fin')
-
+            messagebox.showwarning(title = "Partie terminée",message = "Joueur {} à gagné(e)".format(self.__board.getPlayer()))
+            reponse = messagebox.askquestion(title = "Partie terminée",message = "Une nouvelle partie ?")
+            if reponse == "no":
+                self.__root.destroy()
+            else : 
+                self.__board.newBoard()
+                self.display()
+                
     def updateLabels(self):
         self.__playerNum.set('Player : {}'.format(self.__board.getPlayer()))
     
