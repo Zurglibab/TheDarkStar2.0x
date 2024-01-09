@@ -41,7 +41,7 @@ class gui :
         y = event.y // 50
         if self.__board.move(x,y):
             self.update()
-            
+                        
     def display(self):
         self.__canvas.delete("all")
         for y in range(self.__size):

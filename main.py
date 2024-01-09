@@ -112,6 +112,7 @@ class fonctionnement:
                      res.append([x+i,y+j])
                  if 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [0,-1]:
                      res.append([x+j,y+i])
+        print(res)
         return False if res==[] else res
    
     def move(self, x, y):
@@ -133,13 +134,7 @@ class fonctionnement:
                     if self.alignement(x, y):
                         print("1")
                         return False
-                if self.__board[y][x].getEtat() == [self.__player, 0]:
-                    for j in range(-1,2,2):
-                        for i in range(-2,3,4):
-                            if 0 <= x+i < self.__size and 0 <= y+j < self.__size and self.__board[y+j][x+i].getEtat() == [0,-1]:
-                                print("2")
-                                return True
-                            elif 0 <= x+j < self.__size and 0 <= y+i < self.__size and self.__board[y+i][x+j].getEtat() == [0,-1]:
-                                print("3")
-                                return True         
+                prochainPlayer = 3-self.__player
+                if self.possible(self.__pion[prochainPlayer-1][0],self.__pion[prochainPlayer-1][1]) !=False:
+                    return True
         return False
